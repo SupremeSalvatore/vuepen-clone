@@ -2,7 +2,16 @@ const template = `
 <div class="editor-container"
 :class="classes.editor">
   <div class="editor-title">
-    {{displayName}}
+    <span>{{displayName}}
+      <button
+      type="button"
+      @click="clearStorage"
+      class="expand-collapse-btn"
+      >
+        <i class="fas fa-trash-alt text-left"></i>
+      </button>
+    </span>
+
     <button
       type="button"
       class="expand-collapse-btn"
@@ -70,15 +79,11 @@ const Editor = {
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
+    },
+    clearStorage() {
+      localStorage.removeItem(`vuepen-clone-${this.displayName.toLowerCase()}`);
+      this.$emit('input-lang', '');
     }
   }
 };
-
-const App = {
-  template: '<div id="app">${this.html}</div>'
-};
-new Vue({
-  el: '#app',
-  render: (h) => h(App)
-});
 export default Editor;
