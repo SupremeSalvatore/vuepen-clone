@@ -42,13 +42,13 @@ const Editor = {
       cmOption: {
         tabSize: 2,
         lineWrapping: true,
-        lint: true,
         mode: this.language,
         lineNumbers: true,
         styleActiveLine: true,
         line: true,
         matchBrackets: true,
         theme: 'monokai',
+        keyMap: 'sublime',
         extraKeys: { Ctrl: 'autocomplete' }
       }
     };
@@ -74,4 +74,11 @@ const Editor = {
   }
 };
 
+const App = {
+  template: '<div id="app">${this.html}</div>'
+};
+new Vue({
+  el: '#app',
+  render: (h) => h(App)
+});
 export default Editor;

@@ -2,7 +2,7 @@ const template = `
 <div id="app">
   <div class="pane top-pane">
     <Editor
-      language="html"
+      language="xml"
       display-name="HTML"
       :value="html"
       @input-lang="setHtml"
@@ -44,7 +44,7 @@ const App = {
     return {
       html: '',
       css: '',
-      js: ``
+      js: ''
     };
   },
   created() {
@@ -56,9 +56,25 @@ const App = {
     srcDoc() {
       return `
       <html>
-        <body>${this.html}</body>
-        <style>${this.css}</style>
+        <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+          <style>${this.css}</style>
+        </head>
+        <body>
+          <div id="app"></div>
+        <script src="https://cdn.jsdelivr.net/combine/npm/vue@2.6.10,npm/jquery-slim@3.0.0/dist/jquery.slim.min.js,npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
         <script>${this.js}</script>
+        <script>
+          const App={
+            template:\`<div id="app">${this.html}</div>\`
+          };
+          new Vue({
+            el: '#app',
+            render: (h) => h(App)
+        });
+        </script>
+        </body>
+
       </html>`;
     }
   },
@@ -79,11 +95,11 @@ const App = {
     },
     setCss(value) {
       this.css = value;
-      this.setLocal('html');
+      this.setLocal('css');
     },
     setJs(value) {
       this.js = value;
-      this.setLocal('html');
+      this.setLocal('js');
     }
   }
 };

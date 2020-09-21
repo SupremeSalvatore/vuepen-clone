@@ -5,11 +5,15 @@ Idea was to create this in Vue and show differences.
 
 > Note: This is built with bundless Vue approach.
 
+## Live Preview
+
+https://vuepen-clone.netlify.app
+
 ## Tools
 
-- Vue @2.6.10
-- Codemirror @5.58
-- Vue-codemirror @4.0.6
+- [Vue @2.6.10](https://vuejs.org/)
+- [Codemirror @5.58](https://codemirror.net/index.html)
+- [Vue-codemirror @4.0.6](https://github.com/surmon-china/vue-codemirror)
 
 ## Screenshots
 
