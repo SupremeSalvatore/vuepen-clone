@@ -3,21 +3,24 @@ const template = `
   <div class="pane top-pane">
     <Editor
       language="xml"
-      display-name="HTML"
-      :value="html"
-      @input-lang="setHtml"
+      display-name="html"
+      v-model="html"
+      @input-lang="setLocal"
+      @clear-storage="clearStorage"
     />
     <Editor
       language="css"
-      display-name="CSS"
+      display-name="css"
       v-model='css'
-      @input-lang="setCss"
+      @input-lang="setLocal"
+      @clear-storage="clearStorage"
     />
     <Editor
       language="javascript"
-      display-name="JS"
+      display-name="js"
       v-model='js'
-      @input-lang="setJs"
+      @input-lang="setLocal"
+      @clear-storage="clearStorage"
     />
   </div>
   <div class="pane">
@@ -83,23 +86,16 @@ const App = {
       const localLanguage = localStorage.getItem(`${APP_PREFIX}-${language}`);
       return localLanguage ? JSON.parse(localLanguage) : '';
     },
-    setLocal(language) {
+    setLocal(languageVal, language) {
+      this[language] = languageVal;
       localStorage.setItem(
         `${APP_PREFIX}-${language}`,
         JSON.stringify(this[language])
       );
     },
-    setHtml(value) {
-      this.html = value;
-      this.setLocal('html');
-    },
-    setCss(value) {
-      this.css = value;
-      this.setLocal('css');
-    },
-    setJs(value) {
-      this.js = value;
-      this.setLocal('js');
+    clearStorage(language) {
+      this[language] = '';
+      localStorage.removeItem(`${APP_PREFIX}-${language}`);
     }
   }
 };

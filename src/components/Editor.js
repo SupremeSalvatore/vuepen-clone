@@ -2,15 +2,15 @@ const template = `
 <div class="editor-container"
 :class="classes.editor">
   <div class="editor-title">
-    <span>{{displayName}}
+    <h3>{{displayName}}
       <button
       type="button"
-      @click="clearStorage"
+      @click="$emit('clear-storage',displayName)"
       class="expand-collapse-btn"
       >
         <i class="fas fa-trash-alt text-left"></i>
       </button>
-    </span>
+    </h3>
 
     <button
       type="button"
@@ -21,7 +21,7 @@ const template = `
     </button>
   </div>
   <codemirror
-    @input="$emit('input-lang',$event)"
+    @input="$emit('input-lang',$event,displayName)"
     :value="value"
     class="code-mirror-wrapper"
     :options="cmOption"
@@ -79,10 +79,6 @@ const Editor = {
   methods: {
     toggleOpen() {
       this.isOpen = !this.isOpen;
-    },
-    clearStorage() {
-      localStorage.removeItem(`vuepen-clone-${this.displayName.toLowerCase()}`);
-      this.$emit('input-lang', '');
     }
   }
 };
