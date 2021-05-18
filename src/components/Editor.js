@@ -6,15 +6,25 @@ const template = `
       <button
       type="button"
       @click="$emit('clear-storage',displayName)"
-      class="expand-collapse-btn"
+      class="icon-btn"
+      :title="generateTitle.clear"
       >
         <i class="fas fa-trash-alt text-left"></i>
+      </button>
+      <button
+      type="button"
+      @click="copyToClipboard"
+      class="icon-btn"
+      :title="generateTitle.copy"
+      >
+        <i class="fas fa-copy text-left"></i>
       </button>
     </h3>
 
     <button
       type="button"
-      class="expand-collapse-btn"
+      class="icon-btn"
+      :title="generateTitle.resize"
       @click="toggleOpen"
     >
       <i class="fas" :class="classes.icon"></i>
@@ -63,6 +73,13 @@ const Editor = {
     };
   },
   computed: {
+    generateTitle() {
+      return {
+        clear: `Clear ${this.displayName.toUpperCase()}`,
+        copy: `Copy ${this.displayName.toUpperCase()}`,
+        resize: this.isOpen ? 'Collapse' : 'Expand'
+      };
+    },
     classes() {
       return {
         editor: {
@@ -77,6 +94,21 @@ const Editor = {
     }
   },
   methods: {
+    copyToClipboard() {
+      const textArea = document.createElement('textarea');
+      textArea.value = this.value;
+      textArea.style = {
+        top: '0',
+        left: '0',
+        position: 'fixed'
+      };
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      alert('Copied!');
+      document.body.removeChild(textArea);
+    },
     toggleOpen() {
       this.isOpen = !this.isOpen;
     }
