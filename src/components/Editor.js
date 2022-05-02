@@ -83,12 +83,12 @@ const Editor = {
     classes() {
       return {
         editor: {
-          ['editor-container']: this.isOpen,
-          ['collapsed']: !this.isOpen
+          'editor-container': this.isOpen,
+          collapsed: !this.isOpen
         },
         icon: {
-          ['fa-compress-alt']: this.isOpen,
-          ['fa-expand-alt']: !this.isOpen
+          'fa-compress-alt': this.isOpen,
+          'fa-expand-alt': !this.isOpen
         }
       };
     }
